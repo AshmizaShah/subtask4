@@ -1,27 +1,17 @@
-
 pipeline {
     agent any
 
     stages {
-        stage('Checkout') {
+        stage('Check Python Version') {
             steps {
-                // Checkout the source code from the repository
-                checkout scm
+                sh '/usr/bin/python3.9 --version'
             }
         }
 
-        stage('Run Tests') {
+        stage('Run Python Tests') {
             steps {
-                // Run the unit tests
-                sh 'python -m unittest discover -v'
+                sh '/usr/bin/python3.9 -m unittest discover -v'
             }
-        }
-    }
-
-    post {
-        always {
-            // Archive test reports
-            junit 'reports/**/*.xml'
         }
     }
 }
